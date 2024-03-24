@@ -32,6 +32,10 @@ def execute_ahk_actions(text, remove_f=False, type_34=False):
         time.sleep(0.5)
     
     if not type_34:
+        ahk.mouse_move(413, 398, speed=5)
+        time.sleep(0.1)
+        ahk.click()
+
         ahk.mouse_move(1340, 251, speed=5)
         time.sleep(0.5)
         ahk.click()
@@ -86,7 +90,7 @@ def check_api_and_run():
             active_goal_type = None
 
         for goal_type in types[::-1]:
-            if goal_type in [37, 38, 44, 34]:
+            if goal_type in [37, 38, 44, 34, 43]:
                 if active_goal_type != goal_type:
                     active_goal_type = goal_type
                     for event in thread_stop_events:
@@ -108,7 +112,7 @@ def check_api_and_run():
                         type_34 = False
                     elif goal_type == 44:
                         text = "Lucky Block"
-                        interval = 15
+                        interval = 8
                         remove_f = True
                         type_34 = False
                     elif goal_type == 43:
