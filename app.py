@@ -106,12 +106,12 @@ def check_api_and_run():
                         interval = 2
                         remove_f = False
                         type_34 = False
-                    elif goal_type == 43:
+                    elif goal_type == 44:
                         text = "Lucky Block"
                         interval = 15
                         remove_f = True
                         type_34 = False
-                    elif goal_type == 44:
+                    elif goal_type == 43:
                         text = "Piñata"
                         interval = 4
                         remove_f = True
