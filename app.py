@@ -20,23 +20,23 @@ def execute_ahk_actions(text, remove_f=False, type_34=False):
     
     if type_34:
         update_task_label("Consume Potions")
-        ahk.mouse_move(414, 457, speed=5)
+        ahk.mouse_move(414, 457, speed=5) #Klik na ikonu potionů v inventáři
         time.sleep(0.1)
         ahk.click()
         time.sleep(0.5)
 
-        ahk.mouse_move(684, 513, speed=5)
+        ahk.mouse_move(684, 513, speed=5) #Klik na pozici IV potionů
         for _ in range(1000):
             ahk.click()
             time.sleep(0.001) 
         time.sleep(0.5)
     
     if not type_34:
-        ahk.mouse_move(413, 398, speed=5)
+        ahk.mouse_move(413, 398, speed=5) #Klik na ikonu itemů v inventáři (batůžek)
         time.sleep(0.1)
         ahk.click()
 
-        ahk.mouse_move(1340, 251, speed=5)
+        ahk.mouse_move(1340, 251, speed=5) #Klik na search bar
         time.sleep(0.5)
         ahk.click()
         ahk.click()
@@ -47,23 +47,23 @@ def execute_ahk_actions(text, remove_f=False, type_34=False):
         ahk.type(text)
         time.sleep(0.5)
     
-        ahk.mouse_move(504, 381, speed=5)
+        ahk.mouse_move(504, 381, speed=5) #Klik na první nalezený item 
         time.sleep(0.1)
         ahk.click()
         time.sleep(1)
 
-        ahk.mouse_move(947, 746, speed=5)
+        ahk.mouse_move(947, 746, speed=5) #Klik na tlačítko "ok", když se vypíše chyba, že už je v lokaci item
         time.sleep(0.1)
         ahk.click()
         time.sleep(1)
 
     if type_34:
-        ahk.mouse_move(410, 394, speed=10)
+        ahk.mouse_move(410, 394, speed=10) #Klik na ikonu itemů v inventáři (batůžek)
         time.sleep(0.1)
         ahk.click()
         time.sleep(0.5)
 
-    ahk.mouse_move(908, 126, speed=10)
+    ahk.mouse_move(908, 126, speed=10) #Klik mimo inventář před zavřením (kamkoliv nad okno inventáře)
     time.sleep(0.5)
     if not remove_f:
         ahk.key_press('F')
