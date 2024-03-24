@@ -138,10 +138,15 @@ def check_api_and_run():
                 running_threads.clear()
                 thread_stop_events.clear()
                 active_goal_type = None
-            print("No matching goal type found, pressing R and Space")
-            ahk.key_press('R')
-            ahk.key_press('Space')
-            time.sleep(60)
+                print("No matching goal type found, pressing R and Space")
+                ahk.key_press('R')
+                ahk.key_press('Space')
+                time.sleep(60)
+            else:
+                print("Continuing to press R and Space as no goal is active")
+                ahk.key_press('R')
+                ahk.key_press('Space')
+                time.sleep(60)
         time.sleep(5)
 
 def toggle_script():
