@@ -9,7 +9,7 @@ import keyboard
 ahk = AHK()
 
 def update_task_label(text):
-    current_task_label.config(text=f"Aktuální úloha: {text}")
+    root.after(0, lambda: current_task_label.config(text=f"Aktuální úloha: {text}"))
 def execute_ahk_actions(text, remove_f=False, type_34=False):
     ahk.win_activate('Roblox')
     ahk.win_wait_active('Roblox', timeout=30)
@@ -26,10 +26,10 @@ def execute_ahk_actions(text, remove_f=False, type_34=False):
         time.sleep(0.1)
 
         ahk.mouse_move(684, 513, speed=5) #Klik na pozici IV potionů
-        for _ in range(1000):
+        for _ in range(200):
             ahk.click()
             time.sleep(0.001) 
-        time.sleep(0.1)
+        time.sleep(1)
     
     if not type_34:
         ahk.mouse_move(413, 398, speed=5) #Klik na ikonu itemů v inventáři (batůžek)
@@ -74,6 +74,7 @@ def execute_ahk_script(text, interval, remove_f=False, type_34=False, stop_event
         execute_ahk_actions(text, remove_f, type_34)
         time.sleep(interval)
 
+
 running_threads = []
 thread_stop_events = []
 
@@ -102,12 +103,12 @@ def check_api_and_run():
                     thread_stop_events.append(new_stop_event)
                     if goal_type == 37:
                         text = "Basic Coin Jar"
-                        interval = 5
+                        interval = 7
                         remove_f = False
                         type_34 = False
                     elif goal_type == 38:
                         text = "Comet"
-                        interval = 1
+                        interval = 5
                         remove_f = False
                         type_34 = False
                     elif goal_type == 44:
@@ -133,6 +134,7 @@ def check_api_and_run():
                 break
         else:
             if active_goal_type is not None:
+                stop_thread.set()
                 for event in thread_stop_events:
                     event.set()
                 running_threads.clear()
@@ -161,8 +163,8 @@ def toggle_script():
         button.config(text='Start')
         stop_thread.set() 
         for event in thread_stop_events:
-            event.set() 
-        
+            event.set()
+
         for thread in running_threads:
             thread.join()
 
