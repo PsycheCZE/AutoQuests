@@ -103,7 +103,7 @@ def check_api_and_run():
                     thread_stop_events.append(new_stop_event)
                     if goal_type == 37:
                         text = "Basic Coin Jar"
-                        interval = 7
+                        interval = 6
                         remove_f = False
                         type_34 = False
                     elif goal_type == 38:
