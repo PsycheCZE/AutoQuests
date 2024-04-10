@@ -202,7 +202,7 @@ stop_thread = Event()
 root = Tk()
 root.title("Auto Clan Quests | by Psyche")
 root.attributes('-topmost', True)
-root.geometry('280x250')
+root.geometry('280x225')
 
 root.configure(bg='#333333')
 
