@@ -216,7 +216,7 @@ current_task_label = Label(root, text="Aktuální úloha: ", font=("Helvetica", 
 current_task_label.pack(pady=(0, 0))
 
 radiobutton_frame = Frame(root, bg='#333333')
-radiobutton_frame.pack(pady=10)
+radiobutton_frame.pack(pady=5)
 
 clan_choice = IntVar(value=1)
 
