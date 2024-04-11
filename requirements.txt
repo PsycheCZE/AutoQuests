@@ -2,3 +2,4 @@ requests==2.31.0
 keyboard==0.13.5
 ahk==1.5.3
 ahk-binary==2023.9.0
+pynput==1.7.6
