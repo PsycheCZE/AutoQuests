@@ -4,9 +4,30 @@ import time
 from threading import Thread, Event
 from ahk import AHK
 from tkinter import Tk, Button, Label, Radiobutton, IntVar, Frame
+from pynput.mouse import Listener as MouseListener
 import keyboard 
 
 ahk = AHK()
+
+selected_position_x = None
+selected_position_y = None
+is_selecting_position = False
+
+def on_click(x, y, button, pressed):
+    global is_selecting_position, selected_position_x, selected_position_y
+    if is_selecting_position and pressed:
+        selected_position_x, selected_position_y = x, y
+        print(f"Vybraná pozice: {x}, {y}")  
+        is_selecting_position = False
+        
+        position_text.config(text=f"Pozice= X: {x}, Y: {y}", font=("Helvetica", 10), bg='#0f0f0f', fg='white')  # Aktualizace textu tlačítka
+        return False 
+
+def start_position_selection():
+    global is_selecting_position
+    is_selecting_position = True
+    listener = MouseListener(on_click=on_click)
+    listener.start()
 
 def is_pixel_white(x, y):
     color = ahk.pixel_get_color(x, y)
@@ -34,7 +55,7 @@ def execute_ahk_actions(text, remove_f=False, type_34=False):
         ahk.click()
         time.sleep(0.1)
 
-        ahk.mouse_move(783, 505, speed=5) #Klik na pozici IV potionů
+        ahk.mouse_move(selected_position_x, selected_position_y, speed=5) #Klik na pozici IV potionů
         for _ in range(200):
             ahk.click()
             time.sleep(0.001) 
@@ -89,7 +110,12 @@ def press_space_and_r():
     update_task_label("ANTI AFK!")
     print("Pressing Space and R")
     ahk.key_press('Space')
+    time.sleep(0.1)
     ahk.key_press('R')
+    time.sleep(0.1)
+    ahk.mouse_move(51, 701, speed=5)
+    time.sleep(0.1)
+    ahk.click()
 
 def activate_goal(goal_type):
     stop_all_threads()  
@@ -223,12 +249,29 @@ clan_choice = IntVar(value=1)
 Radiobutton(radiobutton_frame, text="VLP", font=("Helvetica", 10), variable=clan_choice, value=1, bg='#333333', fg='white', selectcolor='#555555').pack(side='left')
 Radiobutton(radiobutton_frame, text="VLP2", font=("Helvetica", 10), variable=clan_choice, value=2, bg='#333333', fg='white', selectcolor='#555555').pack(side='left')
 
-button = Button(root, text="START (F7)", command=toggle_script, 
+position_frame = Frame(root, bg='#0f0f0f') 
+position_frame.pack(pady=2, anchor='center')  
+
+position_text = Label(root, text="", font=("Helvetica", 10), bg='#333333')
+position_text.pack(pady=(0, 0))
+
+
+button_frame = Frame(root, bg='#333333') 
+button_frame.pack(pady=10, anchor='center')  
+
+pick_position_button = Button(button_frame, text="Vybrat pozici\nIV potky", command=start_position_selection, 
+                              bg='#333333', fg='white', 
+                              font=('Helvetica', 10, 'bold'), 
+                              padx=10, pady=10, 
+                              borderwidth=2, relief="ridge")
+pick_position_button.pack(side='left', padx=10) 
+
+button = Button(button_frame, text="START (F7)", command=toggle_script, 
                 bg='#556677', fg='white', 
-                font=('Helvetica', 12, 'bold'), 
-                padx=5, pady=5, 
+                font=('Helvetica', 10, 'bold'), 
+                padx=10, pady=10, 
                 borderwidth=2, relief="ridge")
-button.pack(pady=20)
+button.pack(side='left') 
 
 keyboard.add_hotkey('F7', toggle_script)
 
